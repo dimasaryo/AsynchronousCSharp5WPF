@@ -6,6 +6,9 @@ using System.Windows.Input;
 
 namespace ProgressAndCancellation
 {
+    /// <summary>
+    /// MainWindowViewModel class. Inherited from ViewModelBase
+    /// </summary>
     class MainWindowViewModel : ViewModelBase
     {
         private CancellationTokenSource _cts;
@@ -13,11 +16,27 @@ namespace ProgressAndCancellation
         private IProgress<int> _progress;
         private int _currentProgress;
 
+        private bool _canExecuteProcess;
+        private bool _canExecuteCancel;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainWindowViewModel"/> class.
+        /// </summary>
         public MainWindowViewModel()
-        {           
+        {
+            // Initialization
             _progress = new Progress<int>( ReportProgress );
+            _canExecuteCancel = false;
+            _canExecuteProcess = true;
         }
 
+
+        /// <summary>
+        /// Gets or sets the current progress.
+        /// </summary>
+        /// <value>
+        /// The current progress.
+        /// </value>
         public int CurrentProgress
         {
             get
@@ -44,13 +63,21 @@ namespace ProgressAndCancellation
             get
             {
                 // return the Process relay command
-                return new RelayCommand( async () =>{
+                return new RelayCommand( async () =>
+                {
 
+                    // Enables the Cancel button and Disable Process button
+                    _canExecuteProcess = false;
+                    _canExecuteCancel = true;
+
+                    // Initialize CancellationTokenSource and CancellationToken
                     _cts = new CancellationTokenSource();
                     _token = _cts.Token;
+
+                    // Execute and wait for long process
                     await LongProcess();
 
-                } , CanExecuteProcess );
+                }, CanExecuteProcess );
             }
         }
 
@@ -72,7 +99,8 @@ namespace ProgressAndCancellation
         /// <returns></returns>
         private bool CanExecuteProcess()
         {
-            return true;
+            // Return the process button state
+            return _canExecuteProcess;
         }
 
         /// <summary>
@@ -84,17 +112,31 @@ namespace ProgressAndCancellation
             _cts.Cancel();
         }
 
+        /// <summary>
+        /// Determines whether this instance [can execute cancel].
+        /// </summary>
+        /// <returns>
+        ///   <c>true</c> if this instance [can execute cancel]; otherwise, <c>false</c>.
+        /// </returns>
         private bool CanExecuteCancel()
         {
-            return true;
+            // Return the Cancel button state
+            return _canExecuteCancel;
         }
 
+        /// <summary>
+        /// Asynchronous long the process.
+        /// </summary>
+        /// <returns></returns>
         public async Task LongProcess()
         {
             try
             {
                 await Task.Run( () =>
                 {
+                    // Were the task already cancelled?
+                    _token.ThrowIfCancellationRequested();
+
                     // Simple loop to show the progress
                     for( int i = 1; i <= 10; i++ )
                     {
@@ -109,13 +151,19 @@ namespace ProgressAndCancellation
                             // Sleep for 500ms to show the changes
                             Thread.Sleep( 500 );
 
+                            // Validate the progress
                             if( _progress != null )
                             {
+                                // Report the progress
                                 _progress.Report( ( i * 10 ) );
                             }
                         }
                     }
                 }, _token );
+
+                // Enable Process button and disable Cancel button
+                _canExecuteProcess = true;
+                _canExecuteCancel = false;
 
                 // Reset the progress bar.
                 _progress.Report( 0 );
@@ -126,12 +174,20 @@ namespace ProgressAndCancellation
                 // Clean up
                 _cts.Dispose();
 
+                // Change the button state
+                _canExecuteProcess = true;
+                _canExecuteCancel = false;
+
                 // Reset the progress bar.
                 _progress.Report( 0 );
                 MessageBox.Show( "Process cancelled" );
-            }      
+            }
         }
 
+        /// <summary>
+        /// Reports the progress.
+        /// </summary>
+        /// <param name="value">The value.</param>
         private void ReportProgress( int value )
         {
             // Update the UI to reflect the progress value that is passed back

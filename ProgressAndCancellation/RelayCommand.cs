@@ -4,7 +4,7 @@ using System.Windows.Input;
 namespace ProgressAndCancellation
 {
     /// <summary>
-    /// Relay Command
+    /// Relay Command. Implements ICommand
     /// </summary>
     class RelayCommand : ICommand
     {

@@ -3,7 +3,7 @@
 namespace ProgressAndCancellation
 {
     /// <summary>
-    /// View Model Base
+    /// View Model Base. Implements INotifyPropertyChanged
     /// </summary>
     class ViewModelBase : INotifyPropertyChanged
     {

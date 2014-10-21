@@ -3,10 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="215.385" Width="525">
   <Grid>
-    <ProgressBar Value="{Binding CurrentProgress, Mode=OneWay}" HorizontalAlignment="Left" Height="30" Margin="10,54,0,0" VerticalAlignment="Top" Width="497"/>
-    <Button Content="Process" Command="{Binding ProcessCommand}" HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top" Width="497" Height="30"/>
-    <Button Content="Cancel" Command="{Binding CancelCommand}" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top" Width="497" Height="30"/>
     <Label Content="Enable progress and cancellation in Async" HorizontalAlignment="Left" Margin="143,10,0,0" VerticalAlignment="Top"/>
+    <ProgressBar Value="{Binding CurrentProgress, Mode=OneWay}" HorizontalAlignment="Left" Height="30" Margin="10,54,0,0" VerticalAlignment="Top" Width="497"/>
+    <Button Content="Process" Command="{Binding ProcessCommand}" IsEnabled="{Binding CanExecuteProcess}" HorizontalAlignment="Left" Margin="10,88,0,0" VerticalAlignment="Top" Width="497" Height="30"/>
+    <Button Content="Cancel" Command="{Binding CancelCommand}" IsEnabled="{Binding CanExecuteCancel}" HorizontalAlignment="Left" Margin="10,123,0,0" VerticalAlignment="Top" Width="497" Height="30"/>
+    
 
   </Grid>
 </Window>
