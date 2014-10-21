@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace AsynchronousCSharp5WPF
+namespace ProgressAndCancellation
 {
     /// <summary>
     /// Interaction logic for App.xaml

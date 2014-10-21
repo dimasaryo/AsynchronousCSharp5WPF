@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AsynchronousCSharp5WPF.Properties
+namespace ProgressAndCancellation.Properties
 {
 
 
@@ -44,7 +44,7 @@ namespace AsynchronousCSharp5WPF.Properties
             {
                 if( ( resourceMan == null ) )
                 {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager( "AsynchronousCSharp5WPF.Properties.Resources", typeof( Resources ).Assembly );
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager( "ProgressAndCancellation.Properties.Resources", typeof( Resources ).Assembly );
                     resourceMan = temp;
                 }
                 return resourceMan;

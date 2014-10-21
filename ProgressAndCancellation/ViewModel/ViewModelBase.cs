@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace AsynchronousCSharp5WPF
+namespace ProgressAndCancellation
 {
     /// <summary>
     /// View Model Base

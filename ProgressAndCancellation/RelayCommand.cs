@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace AsynchronousCSharp5WPF
+namespace ProgressAndCancellation
 {
     /// <summary>
     /// Relay Command

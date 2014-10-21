@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AsynchronousCSharp5WPF
+namespace ProgressAndCancellation
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -23,6 +23,7 @@ namespace AsynchronousCSharp5WPF
         public MainWindow()
         {
             InitializeComponent();
+            base.DataContext = new MainWindowViewModel();
         }
     }
 }
